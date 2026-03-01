@@ -130,8 +130,8 @@ wss.on('connection', (ws) => {
         room.active.set(nextQueueId, nextWs);
 
         const newPeers = room.active.size;
-        // Ενημέρωσε αυτόν που μπήκε
-        sendTo(nextWs, { type: 'joined', id: nextQueueId, peers: newPeers, status: 'active' });
+        // Ειδοποίησε αυτόν που βγήκε από αναμονή με ΞΕΧΩΡΙΣΤΟ μήνυμα
+        sendTo(nextWs, { type: 'promoted', id: nextQueueId, peers: newPeers });
         // Ενημέρωσε τους υπόλοιπους active
         broadcastActive(roomId, { type: 'peer_joined', peers: newPeers }, nextQueueId);
         console.log(`[→] Room "${roomId}": ${nextQueueId} promoted from queue`);

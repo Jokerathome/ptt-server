@@ -68,6 +68,10 @@ wss.on('connection', (ws) => {
       case 'ptt':
         broadcast({ type: 'ptt', active: !!msg.active, from: id });
         break;
+
+      case 'ping':
+        send({ type: 'pong' });
+        break;
     }
   });
 
